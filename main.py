@@ -50,34 +50,55 @@ def teleport(n=5, checkTime=0.1):
         
         time.sleep(checkTime)
 
-def forms(message="hello"):
+def forms(mode="auto"):
     #https://docs.google.com/forms/u/0/d/e/1FAIpQLScXcP5bhsp-VyiT1gxxBerm9zZ1ZBvuFqASZ-eDYQTXZh_vjg/formResponse
-    time.sleep(2)
+    if mode.lower()=="manual":
+        key = str(input('vensi ime'))
+        val = str(input('vensi spol'))
+    else:
+        time.sleep(2)
+        imena = {
+    "Tina Kobal": "Ž",
+    "Nace Kobal": "M",
+    "Ana Novak": "Ž",
+    "Marko Horvat": "M",
+    "Maja Zupan": "Ž",
+    "Luka Jovanović": "M",
+    "Jana Križ": "Ž",
+    "Matej Kovač": "M",
+    "Sara Čeh": "Ž",
+    "Peter Smole": "M"
+}
+        res = key, val = random.choice(list(imena.items()))
+        print(res)
+        print(key, val)
+
     pyautogui.press(['tab', 'tab', 'tab', 'tab'])
     #1
     pyautogui.press('up')
     time.sleep(1)
-    '''
-    pyautogui.press('up')
-    pyautogui.press('up')
-    time.sleep(1)'''
-    
     pyautogui.press('tab')
     pyautogui.press('tab')
     time.sleep(1)
-    a = [x for x in message]
+    a = [x for x in key]
     pyautogui.press(a)
     time.sleep(1)
     pyautogui.press('tab')
-    pyautogui.press('up')
-    time.sleep(1)
-    ''''
-    pyautogui.press('up')
-    pyautogui.press('up')
-    time.sleep(1)'''
+    if val == "Ž":
+        pyautogui.press('up')
+        time.sleep(1)
+    else:
+        pyautogui.press('up')
+        pyautogui.press('up')
+        time.sleep(1)
+    #to here
+    #this
+    
+
     pyautogui.press('tab')
     pyautogui.press('tab')
     pyautogui.press('enter')
+    #to here
 
     
 
@@ -92,7 +113,7 @@ if __name__ == "__main__":
     #mouse_jiggler()
     #auto_clicker()
     #autoReactionTime()
-    #teleport()
+    #teleport()     
     forms()
 
 
