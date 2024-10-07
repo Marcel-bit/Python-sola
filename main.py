@@ -50,13 +50,13 @@ def teleport(n=5, checkTime=0.1):
         
         time.sleep(checkTime)
 
-def forms(mode="auto"):
+def forms(mode="auto",bropen=True):
     #https://docs.google.com/forms/u/0/d/e/1FAIpQLScXcP5bhsp-VyiT1gxxBerm9zZ1ZBvuFqASZ-eDYQTXZh_vjg/formResponse
     if mode.lower()=="manual":
         key = str(input('vensi ime'))
         val = str(input('vensi spol'))
     else:
-        time.sleep(2)
+        
         imena = {
     "Tina Kobal": "Ž",
     "Nace Kobal": "M",
@@ -72,7 +72,11 @@ def forms(mode="auto"):
         res = key, val = random.choice(list(imena.items()))
         print(res)
         print(key, val)
-
+    if bropen == True:
+        webbrowser.open('https://docs.google.com/forms/u/0/d/e/1FAIpQLScXcP5bhsp-VyiT1gxxBerm9zZ1ZBvuFqASZ-eDYQTXZh_vjg/formResponse')
+    else:
+        time.sleep(10)
+    time.sleep(3)
     pyautogui.press(['tab', 'tab', 'tab', 'tab'])
     #1
     pyautogui.press('up')
@@ -110,10 +114,8 @@ def forms(mode="auto"):
 
 
 if __name__ == "__main__":
-    #mouse_jiggler()
+    mouse_jiggler()
     #auto_clicker()
     #autoReactionTime()
     #teleport()     
-    forms()
-
-
+    #forms()
