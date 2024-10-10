@@ -1,7 +1,8 @@
 import datetime
+import pytz
 import random
-import matplotlib.pyplot  as plt
-def StarOseba(r, enota = "minute"):
+import matplotlib.pyplot as plt 
+def starOseba(r, enota = "minute"):
     r = datetime.datetime(int(r[2]), int(r[1]), int(r[0]))
     t  = datetime.datetime.now()
     a = t-r
@@ -18,7 +19,7 @@ def StarOseba(r, enota = "minute"):
 
 
 
-def NextBD(r, enota="s"):
+def nextBD(r, enota="s"):
     g = int(datetime.date.today().year)
     t  = datetime.datetime.now()
     n = datetime.datetime(g+1, int(r[1]), int(r[0]))
@@ -26,7 +27,7 @@ def NextBD(r, enota="s"):
     return i.day
 
 
-def NextPO():
+def nextPO():
     now  = datetime.datetime.now()
     pocitnice = {
     "jesenske": {
@@ -84,15 +85,23 @@ def arbeit(zac=datetime.datetime.now(), kon= datetime.datetime(2026, 12, 31), iz
         print(vikend_dni_counter)
 
 
-def cas_cona(ura = 8):
-    utc_datetime = datetime.datetime.now(datetime.timezone.utc)
-    a = -12
-    for x in range(24):
-        print(utc_datetime + datetime.timedelta(hours=a))
-        print(a)
-        a += 1
+def cas_cona(ura = 8, min = 0, sec = 0):
+    b = datetime.datetime(2000, 1, 1, hour=ura, minute=min, second=sec)
+    #b = b.strftime("%H:%M:%S")
+    print(b)
+    zones = pytz.all_timezones
+    a = datetime.timedelta(hours=0), zones[55]
+    print(a)
+    newYorkTz = pytz.timezone(zones[55]) 
+    timeInNewYork = datetime.datetime.now(newYorkTz)
+    timeInNewYork = datetime.datetime.replace(tzinfo=None)
+    currentTimeInNewYork = timeInNewYork.strftime("%H:%M:%S")
+    print(timeInNewYork - b)
+    
+
+    print("The current time in New York is:", currentTimeInNewYork)
         
-def BD_paradox(stev_ljudi= 23, rang = 100, iterations = 100):
+def bd_paradox(stev_ljudi= 23, rang = 100, iterations = 100):
     leto = 2007
     months = {
     "1": 31,
@@ -131,6 +140,7 @@ def BD_paradox(stev_ljudi= 23, rang = 100, iterations = 100):
     x = list(final.keys())
     y = list(final.values())
     plt.plot(x, y)
+    plt.xlabel('X-axis Label', fontsize=5)
     plt.show()
 
     
@@ -145,9 +155,9 @@ def BD_paradox(stev_ljudi= 23, rang = 100, iterations = 100):
 if __name__ == "__main__":
     rojstvo = '27.1.2002'.split('.')
     #print(StarOseba(rojstvo))
-    #NextBD(rojstvo)
-    #NextPO()
+    #nextBD(rojstvo)
+    #nextPO()
     #petek()
     #arbeit()
-    #cas_cona()
-    print(BD_paradox())
+    cas_cona()
+    #print(bd_paradox())
