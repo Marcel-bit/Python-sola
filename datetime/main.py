@@ -1,37 +1,20 @@
 import datetime
-
-def StarOseba(r, enota = "us"):
+import random
+import matplotlib.pyplot  as plt
+def StarOseba(r, enota = "minute"):
     r = datetime.datetime(int(r[2]), int(r[1]), int(r[0]))
     t  = datetime.datetime.now()
     a = t-r
-    if enota == "s":
-        return f"sekunde: {a.total_seconds()}"
-    elif enota == "m":
-        return f"minute: {a.total_seconds()/60}"
-    elif enota == "u":
-        return f"ure: {a.total_seconds()/(60*60)}"
-    elif enota == "d":
-        return f"dnevi: {a.total_seconds()/(60*60*24)}"
-    elif enota == "t":
-        return f"tedni: {a.total_seconds()/(60*60*24*7)}"
-    elif enota == "v":
-        return f"vdihi: {a.total_seconds()/(60/18)}"
-    elif enota == "us":
-        return f"utripi srca: {a.total_seconds()/(60/72)}"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    vred = {
+        'sekunde':0,
+        'minute':60,
+        "ure": (60*60),
+        'dnevi': (60*60*24),
+        'tedni':(60*60*24*7),
+        'vdihi': (60/18),
+        'utripi srca':(60/72)
+    }
+    return f"{enota} : {round(a.total_seconds()/vred[enota], 2)} "
 
 
 
@@ -41,7 +24,8 @@ def NextBD(r, enota="s"):
     n = datetime.datetime(g+1, int(r[1]), int(r[0]))
     i = n-t
     return i.day
-    
+
+
 def NextPO():
     now  = datetime.datetime.now()
     pocitnice = {
@@ -73,12 +57,14 @@ def NextPO():
             print(a-now)
             break
 
+
 def petek(zac=datetime.datetime.now(), kon= datetime.datetime(2026, 12, 31)):
     dan = datetime.datetime.now()
     for i in range((kon-zac).days):
         dan += datetime.timedelta(days=1)
         if dan.day == 13 and dan.strftime("%A") == "Friday":
             print(dan.strftime("%Y-%m-%d") , dan.strftime("%A"))
+
 
 def arbeit(zac=datetime.datetime.now(), kon= datetime.datetime(2026, 12, 31), izpis = "d"):
     dan = datetime.datetime.now()
@@ -97,6 +83,7 @@ def arbeit(zac=datetime.datetime.now(), kon= datetime.datetime(2026, 12, 31), iz
     else:
         print(vikend_dni_counter)
 
+
 def cas_cona(ura = 8):
     utc_datetime = datetime.datetime.now(datetime.timezone.utc)
     a = -12
@@ -105,6 +92,50 @@ def cas_cona(ura = 8):
         print(a)
         a += 1
         
+def BD_paradox(stev_ljudi= 23, rang = 100, iterations = 100):
+    leto = 2007
+    months = {
+    "1": 31,
+    "2": 28,
+    "3": 31,
+    "4": 30,
+    "5": 31,
+    "6": 30,
+    "7": 31,
+    "8": 31,
+    "9": 30,
+    "10": 31,
+    "11": 30,
+    "12": 31
+}
+   
+    
+    
+    final = dict()
+    for x in range(rang):
+        
+        odds = []
+        for y in range(iterations):
+            bdays = []
+            for i in range(x):
+                mesec, dan = random.choice(list(months.items()))
+                dan = random.randint(1, dan)
+                g = str(datetime.datetime(leto, int(mesec), dan))
+                if g in bdays:
+                    bdays.append(g) 
+                    odds.append(True)
+                    break
+                else:
+                    bdays.append(g) 
+        final[str(x)] = len(odds)/iterations
+    x = list(final.keys())
+    y = list(final.values())
+    plt.plot(x, y)
+    plt.show()
+
+    
+
+
 
 
 
@@ -118,4 +149,5 @@ if __name__ == "__main__":
     #NextPO()
     #petek()
     #arbeit()
-    cas_cona()
+    #cas_cona()
+    print(BD_paradox())
