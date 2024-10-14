@@ -19,16 +19,22 @@ def starOseba(r, enota = "minute"):
 
 
 
-def nextBD(r, enota="s"):
+def nextBD(r, enota="minute"):
     g = int(datetime.date.today().year)
     t  = datetime.datetime.now()
     n = datetime.datetime(g+1, int(r[1]), int(r[0]))
     i = n-t
-    return i.day
+    vred = {
+        'sekunde':0,
+        'minute':60,
+        "ure": (60*60),
+        'dnevi': (60*60*24),
+        'tedni':(60*60*24*7),
+    }
+    print(f"{enota} : {round(i.total_seconds()/vred[enota], 2)} ")
 
 
-def nextPO():
-    now  = datetime.datetime.now()
+def nextPO(cas= datetime.datetime.now(), tip="zimske"):
     pocitnice = {
     "jesenske": {
         "začetek": "2024-10-30",
@@ -47,15 +53,18 @@ def nextPO():
         "konec": "2025-09-01"
     }
 }
+    if tip:
+        pocitnice= {tip: pocitnice[tip]}
     d = dict()
     for k, v in enumerate(pocitnice):
         a = []
         g = pocitnice[v]['začetek'].split('-')
+        b = pocitnice[v]['konec'].split('-')
         for x in range(0, 3):
             a.append(int(g[x]))
         a = datetime.datetime(a[0], a[1], a[2])
-        if a > now:
-            print(a-now)
+        if a > cas:
+            print(a-cas)
             break
 
 
@@ -85,21 +94,27 @@ def arbeit(zac=datetime.datetime.now(), kon= datetime.datetime(2026, 12, 31), iz
         print(vikend_dni_counter)
 
 
-def cas_cona(ura = 8, min = 0, sec = 0):
-    b = datetime.datetime(2000, 1, 1, hour=ura, minute=min, second=sec)
-    #b = b.strftime("%H:%M:%S")
-    print(b)
+def cas_cona(ura = 20, minu = 0, sec = 0):
+    cilj = datetime.datetime.now()
     zones = pytz.all_timezones
-    a = datetime.timedelta(hours=0), zones[55]
-    print(a)
-    newYorkTz = pytz.timezone(zones[55]) 
-    timeInNewYork = datetime.datetime.now(newYorkTz)
-    timeInNewYork = datetime.datetime.replace(tzinfo=None)
-    currentTimeInNewYork = timeInNewYork.strftime("%H:%M:%S")
-    print(timeInNewYork - b)
+    najbCona = ""
+    najmRazlika = float('inf')
+    now = datetime.datetime.now(pytz.utc)
+    for zone in zones:
+        
+        timezone = pytz.timezone(zone)
+        currTime = now.astimezone(timezone)
+        
+        cilj = currTime.replace(hour=ura, minute=minu, second=sec)
+        razlika = abs((cilj - currTime).total_seconds()) / 60
+        if razlika < najmRazlika:
+            najmRazlika = razlika
+            najbCona = zone
+            najbTime = currTime
+        print(razlika, zone)
     
 
-    print("The current time in New York is:", currentTimeInNewYork)
+    print(najbCona, najmRazlika, najbTime)
         
 def bd_paradox(stev_ljudi= 23, rang = 100, iterations = 100):
     leto = 2007
@@ -156,8 +171,8 @@ if __name__ == "__main__":
     rojstvo = '27.1.2002'.split('.')
     #print(StarOseba(rojstvo))
     #nextBD(rojstvo)
-    #nextPO()
+    nextPO()
     #petek()
     #arbeit()
-    cas_cona()
+    #cas_cona()
     #print(bd_paradox())
