@@ -3,8 +3,9 @@
 # Opomba: Za vsako funkcijo, ki spreminja sliko, naj se rezultat shrani
 # pod imenom "originalnoIme_opisSpremembe.png" v isti mapi kot originalna slika.
 
-from PIL import Image, ImageOps, ImageFont, ImageDraw
+from PIL import Image, ImageOps, ImageFont, ImageDraw, ImageFilter
 from pytesseract import pytesseract 
+import os
 
 
 
@@ -52,7 +53,7 @@ def text_to_image(image_path, text, position, font_size=24, font_color=(255, 255
 
     watermark_image.show()
 
-def logo_to_image(image_path, logo_path, position, scale=0.1, folder = None):
+def logo_to_image(image_path, logo_path, position, scale=0.5, folder = None):
     """
     Funkcija doda logotip na sliko na določeno pozicijo.
     
@@ -70,6 +71,11 @@ def logo_to_image(image_path, logo_path, position, scale=0.1, folder = None):
     # KODA
     im1 = Image.open(image_path)
     im2 = Image.open(logo_path)
+    
+    w1, h1 = im1.size
+    w2, h2 = im2.size
+    newsize = (int(w2*scale), int(h2*scale))
+    im2 = im2.resize(newsize)
     w1, h1 = im1.size
     w2, h2 = im2.size
     center_x, center_y = (w1/2), (h1/2)
@@ -92,7 +98,7 @@ def logo_to_image(image_path, logo_path, position, scale=0.1, folder = None):
     print(w2, h2)
 
     back_im = im1.copy()
-    back_im.paste(im2, pos['centerDown'])
+    back_im.paste(im2, pos['left'])
     back_im.show()
 
 
@@ -110,7 +116,10 @@ def my_filter(image_path, intensity=0.5):
     Shranjena slika s filtrom
     """
     # KODA, filter je lahko čisto poljuben!
-    pass
+    im1 = Image.open(image_path)
+
+    im2 = im1.filter(ImageFilter.MedianFilter(size = int(intensity*10)))
+    im2.show()
 
 def merge_images(folder_path, rows=1, cols=1):
     """
@@ -125,7 +134,11 @@ def merge_images(folder_path, rows=1, cols=1):
     Shranjena združena slika
     """
     # KODA
-    pass
+    image_files = [os.path.join(folder_path, file) for file in os.listdir(folder_path)]
+    for x in image_files:
+        print(x)
+        im1 = Image.open(x)
+        im1.show()
 
 def random_quote(image_path, quote_file, font_size=24, font_color=(255, 255, 255)):
     """
@@ -182,11 +195,13 @@ def save():
 if __name__ == "__main__":
     imagePath1="./slike/lenna.png"
     logoPath2="./slike/wallstreet.jpeg"
+    folder_path = "./slike"
     #grayscale(imagePath1)
     #text_to_image(imagePath1, "Primer besedila", (10, 10))
-    logo_to_image(imagePath1, logoPath2, "center")
-    # my_filter("pot/do/slike.jpg", intensity=0.7)
-    # merge_images("pot/do/mape/s/slikami")
+    
+    #logo_to_image(imagePath1, logoPath2, "center")
+    #my_filter(imagePath1, intensity=0.7)
+    merge_images(folder_path)
     # random_quote("pot/do/slike.jpg", "pot/do/citatov.txt")
     # blur_faces("pot/do/slike.jpg")
     # collage(["pot/do/slike1.jpg", "pot/do/slike2.jpg", "pot/do/slike3.jpg"])
