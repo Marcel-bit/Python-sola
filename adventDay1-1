@@ -1,0 +1,29 @@
+def main():
+    file = open("C:\\Users\\Uporabnik\\Downloads\\input.txt", "r")
+
+    content = file.read()
+    lines = content.split("\n")
+
+    le = []
+    ri = []
+
+    for l in lines:
+        if l != "":
+            co = l.split()
+            le.append(int(co[0]))
+            ri.append(int(co[1]))
+
+    le.sort()
+    ri.sort()
+
+    totLen = 0
+
+    for index in range(len(le)):
+        print(le[index], ri[index])
+        totLen += le[index] - ri[index] if le[index] > ri[index] else ri[index] - le[index]   
+    print(totLen)
+
+
+
+if __name__ == "__main__":
+    main()
