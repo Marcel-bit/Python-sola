@@ -1,0 +1,70 @@
+PS C:\Users\Uporabnik\Documents\vss> git clone https://github.com/Marcel-bit/Python-sola/tree/main
+Cloning into 'main'...
+fatal: repository 'https://github.com/Marcel-bit/Python-sola/tree/main/' not found
+PS C:\Users\Uporabnik\Documents\vss> git clone https://github.com/Marcel-bit/Python-sola.git
+Cloning into 'Python-sola'...
+remote: Enumerating objects: 65, done.
+remote: Counting objects: 100% (65/65), done.
+remote: Compressing objects: 100% (48/48), done.
+remote: Total 65 (delta 12), reused 7 (delta 0), pack-reused 0 (from 0)
+Receiving objects: 100% (65/65), 27.64 KiB | 2.30 MiB/s, done.
+Resolving deltas: 100% (12/12), done.
+PS C:\Users\Uporabnik\Documents\vss> cd .\Python-sola          
+PS C:\Users\Uporabnik\Documents\vss\Python-sola> git branch
+* main
+PS C:\Users\Uporabnik\Documents\vss\Python-sola> git pull origin main
+From https://github.com/Marcel-bit/Python-sola
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+PS C:\Users\Uporabnik\Documents\vss\Python-sola> git add .
+PS C:\Users\Uporabnik\Documents\vss\Python-sola> git commit -m "testerrrrrrrr"
+[main f07449a] testerrrrrrrr
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 testerrrrrrrrrrrrrrr.txt
+PS C:\Users\Uporabnik\Documents\vss\Python-sola> git log
+commit f07449a7e8e4bc53485804930cde108fae9b14a7 (HEAD -> main)
+Author: Marcel <marcel.hribar07@gmail.com>
+Date:   Mon Dec 2 10:58:54 2024 +0100
+
+    testerrrrrrrr
+
+commit 80a215da6a32c097ff6a46c14ac6c9d525ae4fc6 (origin/main, origin/HEAD)
+Author: Marcel-bit <49585259+Marcel-bit@users.noreply.github.com>
+Date:   Mon Dec 2 10:27:00 2024 +0100
+
+    Add files via upload
+
+commit d47afdfabeb047b24521c5b0854082636bf3609b
+Author: Marcel-bit <49585259+Marcel-bit@users.noreply.github.com>
+Date:   Mon Dec 2 09:13:06 2024 +0100
+
+    Delete wer.txt
+
+commit 89b50de9443517be68216cc6bbd40cd607239662
+Author: Marcel-bit <49585259+Marcel-bit@users.noreply.github.com>
+Date:   Mon Dec 2 09:11:40 2024 +0100
+
+    Create wer.txt
+
+commit 39fdd63308f18f43d99155a315cf80b28c5e548a
+Author: Marcel-bit <49585259+Marcel-bit@users.noreply.github.com>
+Date:   Mon Oct 14 14:28:27 2024 +0200
+
+    Update main.py
+
+commit 253db92e5ded08c0d0f3b4a72bd6c606a058de08
+Author: Marcel-bit <49585259+Marcel-bit@users.noreply.github.com>
+Date:   Mon Oct 14 10:27:58 2024 +0200
+
+    Create main.py
+PS C:\Users\Uporabnik\Documents\vss\Python-sola> git push origin main
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 243 bytes | 243.00 KiB/s, done.
+Total 2 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/Marcel-bit/Python-sola.git
+   80a215d..f07449a  main -> main
+PS C:\Users\Uporabnik\Documents\vss\Python-sola> 
